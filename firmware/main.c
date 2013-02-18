@@ -211,15 +211,16 @@ int BH1772GLC_get_shot(uchar addr)
       //0x38
   int res,a,b,err;
   (void)err;
+      /*
   if(TwiRequestWrite(addr, 0x44)){
     printf("Error to read term :-(\n");
     return -1;
   }
   TwiWriteStop(2);
 
-  _delay_ms(1000);
+  _delay_ms(1000);*/
 
-  if(TwiRequestRead(addr, 0x4C)){
+  if(TwiRequestRead(addr, 0x42)){
     printf("Error to read term :-(\n");
     return -1;
   }
@@ -254,7 +255,7 @@ int main(void)
 //      printf("Init check: %i\r\n", res);
       sens = BH1772GLC_get_shot(AMB_PREF);
       /* main event loop */
-      printf("Hello world: %i, res: %i, sens: %i\r\n", i++, term, sens);
+      printf("Hello world: %i, res: %i, sens: %i (%x)\r\n", i++, term, sens, sens);
       //printf("Hello world: %i, res: %i\r\n", i++);
 
     }
