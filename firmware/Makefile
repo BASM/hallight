@@ -22,19 +22,30 @@ AVRDUDE = avrdude -c ${TYPEPROG} -p m168
 #OBJECTS = usbdrv/usbdrv.o usbdrv/usbdrvasm.o usbdrv/oddebug.o main.o usbtty.o
 OBJECTS = main.o
 
+DEPLIBS+=libavr
+AVRLIBS=uart twi
 
-LIBS=uart
-LLIBS=$(LIBS:%=lib%)
-LDLIBS+=$(foreach lib,${LIBS},-Llib/lib${lib} -l${lib})
-LIBS_CFLAGS+=$(foreach inc,${LIBS},-Ilib/lib${inc}/include)
-LIBDEPS=$(foreach lib,${LIBS},lib/lib${lib}/lib${lib}.a)
+AVR_LDLIBS=-Llib/libavr $(foreach lib,${AVRLIBS},-l ${lib})
+AVR_CFLAGS=-Ilib/libavr/include
+AVR_DEPS=$(foreach lib,${LIBS},lib/libavr/lib${lib}.a)
 
 
-COMPILE = avr-gcc -Os -Wall -I. -mmcu=$(DEVICE) -DF_CPU=${FREQ} $(LIBS_CFLAGS)
+LDLIBS+=${AVR_LDLIBS}
+CFLAGS+=${AVR_CFLAGS}
+DEPS  +=${AVR_DEPS}
+
+#LIBS=avr
+#DEPLIBS+=$(LIBS:%=lib%)
+#LDLIBS+=$(foreach lib,${LIBS},-Llib/lib${lib} -l${lib})
+#LIBS_CFLAGS+=$(foreach inc,${LIBS},-Ilib/lib${inc}/include)
+#LIBDEPS=$(foreach lib,${LIBS},lib/lib${lib}/lib${lib}.a)
+
+
+COMPILE = avr-gcc -Os -Wall -I. -mmcu=$(DEVICE) -DF_CPU=${FREQ} $(CFLAGS)
 # symbolic targets:
-all: $(LLIBS) main.hex
+all: $(DEPLIBS) main.hex
 
-${LLIBS}:
+${DEPLIBS}:
 	make -C lib/$@/
 #libir:
 #	make -C libs/libir/
@@ -107,7 +118,7 @@ fuse_mega168:	# only needed for atmega168
 clean:
 	rm -f main.hex main.lst main.obj main.cof main.list main.map main.eep.hex main.bin *.o usbdrv/*.o main.s usbdrv/oddebug.s usbdrv/usbdrv.s
 
-main.bin:	$(OBJECTS) $(LIBDEPS)
+main.bin:	$(OBJECTS) $(DEPS)
 	$(COMPILE) -o main.bin $(OBJECTS) $(LDLIBS) 
 
 main.hex:	main.bin
