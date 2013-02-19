@@ -1,0 +1,204 @@
+# EESchema Netlist Version 1.1 created  Ср. 20 февр. 2013 00:21:54
+(
+ ( /5123A30D CP4 C2 RGB
+  ( 1 N-000009 )
+  ( 2 GND )
+ )
+ ( /5123A31B CP4 C3 RGB
+  ( 1 N-000037 )
+  ( 2 GND )
+ )
+ ( /5123A31D CP4 C4 RGB
+  ( 1 N-000005 )
+  ( 2 GND )
+ )
+ ( /5123A2F4 SIL-3 D1 TSOP34836
+  ( 1 N-000034 )
+  ( 2 GND )
+  ( 3 +3.3V )
+ )
+ ( /5123A551 SM0805 D2 LED
+  ( 1 N-000001 )
+  ( 2 GND )
+ )
+ ( /5123A2EE TQFP32 IC1 ATMEGA328P-A
+  ( 1 N-000023 )
+  ( 2 ? )
+  ( 3 GND )
+  ( 4 +3.3V )
+  ( 5 GND )
+  ( 6 +3.3V )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 N-000027 )
+  ( 10 N-000026 )
+  ( 11 ? )
+  ( 12 N-000029 )
+  ( 13 N-000012 )
+  ( 14 ? )
+  ( 15 N-000038 )
+  ( 16 N-000032 )
+  ( 17 N-000031 )
+  ( 18 +3.3V )
+  ( 19 ? )
+  ( 20 ? )
+  ( 21 GND )
+  ( 22 ? )
+  ( 23 ? )
+  ( 24 ? )
+  ( 25 ? )
+  ( 26 ? )
+  ( 27 N-000002 )
+  ( 28 N-000003 )
+  ( 29 N-000030 )
+  ( 30 N-000035 )
+  ( 31 N-000036 )
+  ( 32 N-000034 )
+ )
+ ( /5123A2F6 SIL-3 K1 EKMS
+  ( 1 N-000023 )
+  ( 2 GND )
+  ( 3 +3.3V )
+ )
+ ( /5123A2FA SIL-1 P1 CONN_1
+  ( 1 N-000030 )
+ )
+ ( /5123A169 SIL-1 P2 CONN_1
+  ( 1 N-000038 )
+ )
+ ( /5123A168 SIL-1 P3 CONN_1
+  ( 1 N-000032 )
+ )
+ ( /5123A2F3 SIL-2 P4 UART
+  ( 1 N-000035 )
+  ( 2 N-000036 )
+ )
+ ( /5123A2F7 SIL-4 P5 I2C
+  ( 1 +3.3V )
+  ( 2 N-000002 )
+  ( 3 N-000003 )
+  ( 4 GND )
+ )
+ ( /00000000 SIL-4 P6 RGB
+  ( 1 GND )
+  ( 2 N-000009 )
+  ( 3 N-000037 )
+  ( 4 N-000005 )
+ )
+ ( /5123A388 SIL-1 P7 CONN_1
+  ( 1 N-000031 )
+ )
+ ( /5123A3B8 SIL-1 P8 CONN_1
+  ( 1 N-000029 )
+ )
+ ( /5123DDCC SIL-2 P9 CONN_2
+  ( 1 GND )
+  ( 2 +12V )
+ )
+ ( /5123A065 R3 R1 R33k
+  ( 1 +3.3V )
+  ( 2 N-000003 )
+ )
+ ( /5123A2F9 R3 R2 R33k
+  ( 1 +3.3V )
+  ( 2 N-000002 )
+ )
+ ( /5123A3C8 SM0805 R3 R68
+  ( 1 N-000027 )
+  ( 2 N-000001 )
+ )
+ ( /5123BC2C R1 R4 R1.5k
+  ( 1 N-000023 )
+  ( 2 GND )
+ )
+ ( /5123C27B DIP-18__300 U1 ULN2803L
+  ( 1 N-000038 )
+  ( 2 N-000038 )
+  ( 3 N-000012 )
+  ( 4 N-000012 )
+  ( 5 N-000026 )
+  ( 6 N-000026 )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 GND )
+  ( 10 ? )
+  ( 11 ? )
+  ( 12 ? )
+  ( 13 N-000005 )
+  ( 14 N-000005 )
+  ( 15 N-000037 )
+  ( 16 N-000037 )
+  ( 17 N-000009 )
+  ( 18 N-000009 )
+ )
+ ( /5123DEC5 SIL-3 U2 IRU1015
+  ( 1 GND )
+  ( 2 +3.3V )
+  ( 3 +12V )
+ )
+ ( /5123A2F8 C1V5 VsFilter1 CP1
+  ( 1 +3.3V )
+  ( 2 GND )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C2
+ CP*
+ SM*
+$endlist
+$component C3
+ CP*
+ SM*
+$endlist
+$component C4
+ CP*
+ SM*
+$endlist
+$component D2
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component IC1
+ 28DIP-ELL600
+ 28dip600
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R3
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R4
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component VsFilter1
+ CP*
+ SM*
+$endlist
+$endfootprintlist
+}

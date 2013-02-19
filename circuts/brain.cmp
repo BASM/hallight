@@ -1,0 +1,164 @@
+Cmp-Mod V01 Created by CvPcb (2011-nov-30)-stable date = Ср. 20 февр. 2013 00:21:54
+
+BeginCmp
+TimeStamp = /5123A30D;
+Reference = C2;
+ValeurCmp = RGB;
+IdModule  = CP4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A31B;
+Reference = C3;
+ValeurCmp = RGB;
+IdModule  = CP4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A31D;
+Reference = C4;
+ValeurCmp = RGB;
+IdModule  = CP4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A2F4;
+Reference = D1;
+ValeurCmp = TSOP34836;
+IdModule  = SIL-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A551;
+Reference = D2;
+ValeurCmp = LED;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A2EE;
+Reference = IC1;
+ValeurCmp = ATMEGA328P-A;
+IdModule  = TQFP32;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A2F6;
+Reference = K1;
+ValeurCmp = EKMS;
+IdModule  = SIL-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A2FA;
+Reference = P1;
+ValeurCmp = CONN_1;
+IdModule  = SIL-1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A169;
+Reference = P2;
+ValeurCmp = CONN_1;
+IdModule  = SIL-1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A168;
+Reference = P3;
+ValeurCmp = CONN_1;
+IdModule  = SIL-1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A2F3;
+Reference = P4;
+ValeurCmp = UART;
+IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A2F7;
+Reference = P5;
+ValeurCmp = I2C;
+IdModule  = SIL-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /00000000;
+Reference = P6;
+ValeurCmp = RGB;
+IdModule  = SIL-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A388;
+Reference = P7;
+ValeurCmp = CONN_1;
+IdModule  = SIL-1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A3B8;
+Reference = P8;
+ValeurCmp = CONN_1;
+IdModule  = SIL-1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123DDCC;
+Reference = P9;
+ValeurCmp = CONN_2;
+IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A065;
+Reference = R1;
+ValeurCmp = R33k;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A2F9;
+Reference = R2;
+ValeurCmp = R33k;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A3C8;
+Reference = R3;
+ValeurCmp = R68;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123BC2C;
+Reference = R4;
+ValeurCmp = R1.5k;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123C27B;
+Reference = U1;
+ValeurCmp = ULN2803L;
+IdModule  = DIP-18__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123DEC5;
+Reference = U2;
+ValeurCmp = IRU1015;
+IdModule  = SIL-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5123A2F8;
+Reference = VsFilter1;
+ValeurCmp = CP1;
+IdModule  = C1V5;
+EndCmp
+
+EndListe

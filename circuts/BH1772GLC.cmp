@@ -1,0 +1,52 @@
+Cmp-Mod V01 Created by CvPcb (2011-nov-30)-stable date = Вт. 12 февр. 2013 22:39:33
+
+BeginCmp
+TimeStamp = /511A77D3;
+Reference = C1;
+ValeurCmp = C;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /511A77D0;
+Reference = D1;
+ValeurCmp = LED;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /511A8C0E;
+Reference = K1;
+ValeurCmp = CONN_3;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /511A77D5;
+Reference = Q1;
+ValeurCmp = 2N7002;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /51193DAE;
+Reference = R1;
+ValeurCmp = R68;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /511A77D4;
+Reference = R2;
+ValeurCmp = R1000;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /00000000;
+Reference = U1;
+ValeurCmp = BH1772GLC;
+IdModule  = BH1772GLC;
+EndCmp
+
+EndListe

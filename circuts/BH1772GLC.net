@@ -1,0 +1,73 @@
+# EESchema Netlist Version 1.1 created  Вт. 12 февр. 2013 22:39:33
+(
+ ( /511A77D3 $noname$ C1 C
+  ( 1 +5V )
+  ( 2 GND )
+ )
+ ( /511A77D0 $noname$ D1 LED
+  ( 1 N-000011 )
+  ( 2 N-000002 )
+ )
+ ( /511A8C0E $noname$ K1 CONN_3
+  ( 1 N-000008 )
+  ( 2 N-000006 )
+  ( 3 N-000013 )
+ )
+ ( /511A77D5 $noname$ Q1 2N7002
+  ( D +5V )
+  ( G N-000012 )
+  ( S N-000011 )
+ )
+ ( /51193DAE $noname$ R1 R68
+  ( 1 N-000002 )
+  ( 2 GND )
+ )
+ ( /511A77D4 $noname$ R2 R1000
+  ( 1 +5V )
+  ( 2 N-000012 )
+ )
+ ( /00000000 BH1772GLC U1 BH1772GLC
+  ( 1 ? )
+  ( 2 ? )
+  ( 3 N-000012 )
+  ( 4 GND )
+  ( 5 N-000008 )
+  ( 6 N-000007 )
+  ( 7 GND )
+  ( 8 N-000006 )
+  ( 9 N-000013 )
+  ( 10 GND )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C1
+ SM*
+ C?
+ C1-1
+$endlist
+$component D1
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$endfootprintlist
+}

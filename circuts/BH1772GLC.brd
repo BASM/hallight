@@ -1,0 +1,267 @@
+PCBNEW-BOARD Version 1 date Ср. 13 февр. 2013 00:07:11
+
+# Created by Pcbnew(2011-nov-30)-stable
+
+$GENERAL
+encoding utf-8
+LayerCount 2
+Ly 1FFF8001
+EnabledLayers 1FFF8001
+Links 2
+NoConn 2
+Di 22925 20113 29045 26025
+Ndraw 0
+Ntrack 35
+Nzone 0
+BoardThickness 630
+Nmodule 1
+Nnets 7
+$EndGENERAL
+
+$SHEETDESCR
+Sheet A4 11700 8267
+Title ""
+Date "12 feb 2013"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndSHEETDESCR
+
+$SETUP
+InternalUnit 0.000100 INCH
+Layers 2
+Layer[0] Back signal
+Layer[15] Front signal
+TrackWidth 552
+TrackClearence 0
+ZoneClearence 200
+TrackMinWidth 0
+DrawSegmWidth 150
+EdgeSegmWidth 150
+ViaSize 153
+ViaDrill 93
+ViaMinSize 0
+ViaMinDrill 0
+MicroViaSize 82
+MicroViaDrill 50
+MicroViasAllowed 0
+MicroViaMinSize 0
+MicroViaMinDrill 0
+TextPcbWidth 120
+TextPcbSize 600 800
+EdgeModWidth 150
+TextModSize 600 600
+TextModWidth 120
+PadSize 600 600
+PadDrill 320
+Pad2MaskClearance 100
+AuxiliaryAxisOrg 0 0
+PcbPlotParams (pcbplotparams (layerselection 3178497) (usegerberextensions true) (excludeedgelayer false) (linewidth 60) (plotframeref false) (viasonmask false) (mode 1) (useauxorigin false) (hpglpennumber 1) (hpglpenspeed 20) (hpglpendiameter 15) (hpglpenoverlay 0) (pscolor true) (psnegative false) (psa4output false) (plotreference true) (plotvalue true) (plotothertext true) (plotinvisibletext false) (padsonsilk false) (subtractmaskfromsilk false) (outputformat 2) (mirror false) (drillshape 1) (scaleselection 1) (outputdirectory ""))
+$EndSETUP
+
+$EQUIPOT
+Na 0 ""
+St ~
+$EndEQUIPOT
+$EQUIPOT
+Na 1 "GND"
+St ~
+$EndEQUIPOT
+$EQUIPOT
+Na 2 "N-000006"
+St ~
+$EndEQUIPOT
+$EQUIPOT
+Na 3 "N-000007"
+St ~
+$EndEQUIPOT
+$EQUIPOT
+Na 4 "N-000008"
+St ~
+$EndEQUIPOT
+$EQUIPOT
+Na 5 "N-000012"
+St ~
+$EndEQUIPOT
+$EQUIPOT
+Na 6 "N-000013"
+St ~
+$EndEQUIPOT
+$NCLASS
+Name "Default"
+Desc "This is the default net class."
+Clearance 0
+TrackWidth 552
+ViaDia 153
+ViaDrill 93
+uViaDia 82
+uViaDrill 50
+AddNet ""
+AddNet "GND"
+AddNet "N-000006"
+AddNet "N-000007"
+AddNet "N-000008"
+AddNet "N-000012"
+AddNet "N-000013"
+$EndNCLASS
+$MODULE BH1772GLC
+Po 26851 24646 0 15 511A8B13 511A8C6B ~~
+Li BH1772GLC
+Sc 511A8C6B
+AR /00000000
+Op 0 0 0
+T0 -1654 -4173 600 600 0 120 N V 21 N "U1"
+T1 -866 -2835 600 600 0 120 N V 21 N "BH1772GLC"
+DS -551 -551 551 -551 150 21
+DS 551 -551 551 551 150 21
+DS 551 551 -551 551 150 21
+DS -551 551 -551 -551 150 21
+$PAD
+Sh "1" T 197 157 0 0 0
+Dr 0 0 0 O 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -394 -394
+$EndPAD
+$PAD
+Sh "2" T 197 157 0 0 0
+Dr 0 0 0 O 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -394 -138
+$EndPAD
+$PAD
+Sh "3" T 197 157 0 0 0
+Dr 0 0 0 O 0 0
+At SMD N 00888000
+Ne 5 "N-000012"
+Po -394 138
+$EndPAD
+$PAD
+Sh "4" T 197 157 0 0 0
+Dr 0 0 0 O 0 0
+At SMD N 00888000
+Ne 1 "GND"
+Po -394 394
+$EndPAD
+$PAD
+Sh "6" T 197 157 0 0 0
+Dr 0 0 0 O 0 0
+At SMD N 00888000
+Ne 3 "N-000007"
+Po 394 394
+$EndPAD
+$PAD
+Sh "7" T 197 157 0 0 0
+Dr 0 0 0 O 0 0
+At SMD N 00888000
+Ne 1 "GND"
+Po 394 138
+$EndPAD
+$PAD
+Sh "8" T 197 157 0 0 0
+Dr 0 0 0 O 0 0
+At SMD N 00888000
+Ne 2 "N-000006"
+Po 394 -138
+$EndPAD
+$PAD
+Sh "9" T 197 157 0 0 0
+Dr 0 0 0 O 0 0
+At SMD N 00888000
+Ne 6 "N-000013"
+Po 394 -394
+$EndPAD
+$PAD
+Sh "5" T 157 197 0 0 0
+Dr 0 0 0 O 0 0
+At SMD N 00888000
+Ne 4 "N-000008"
+Po 0 394
+$EndPAD
+$PAD
+Sh "10" T 157 197 0 0 0
+Dr 0 0 0 O 0 0
+At SMD N 00888000
+Ne 1 "GND"
+Po 0 -394
+$EndPAD
+$EndMODULE  BH1772GLC
+$TRACK
+Po 0 28288 25138 28327 25138 552 -1
+De 15 0 1 0 0
+Po 0 28327 25138 28386 25197 552 -1
+De 15 0 1 0 0
+Po 0 27245 24784 27461 24784 158 -1
+De 15 0 1 0 400000
+Po 0 28288 25138 28307 25157 158 -1
+De 15 0 1 0 0
+Po 0 27716 25039 28189 25039 158 -1
+De 15 0 1 0 0
+Po 0 27461 24784 27716 25039 158 -1
+De 15 0 1 0 0
+Po 0 25827 25709 25906 25630 552 -1
+De 15 0 1 0 0
+Po 0 26457 25079 25906 25630 158 -1
+De 15 0 1 0 0
+Po 0 26457 25079 26457 25040 158 -1
+De 15 0 1 0 800000
+Po 0 26851 23702 26851 23584 552 -1
+De 15 0 1 0 0
+Po 0 26851 23584 26850 23583 552 -1
+De 15 0 1 0 0
+Po 0 26851 24252 26851 23702 158 -1
+De 15 0 1 0 400000
+Po 0 26851 23702 26850 23701 158 -1
+De 15 0 1 0 0
+Po 0 28189 25039 28288 25138 158 -1
+De 15 0 1 0 0
+Po 0 27992 24410 28071 24331 552 -1
+De 15 0 2 0 0
+Po 0 27245 24508 27578 24508 158 -1
+De 15 0 2 0 400000
+Po 0 27578 24508 27637 24449 158 -1
+De 15 0 2 0 0
+Po 0 27992 24449 27992 24410 552 -1
+De 15 0 2 0 0
+Po 0 27637 24449 27992 24449 158 -1
+De 15 0 2 0 0
+Po 0 27717 25551 27717 25591 552 -1
+De 15 0 3 0 0
+Po 0 27245 25079 27717 25551 158 -1
+De 15 0 3 0 0
+Po 0 27245 25040 27245 25079 158 -1
+De 15 0 3 0 400000
+Po 0 27717 25591 27756 25630 552 -1
+De 15 0 3 0 0
+Po 0 26851 25040 26851 25668 158 -1
+De 15 0 4 0 400000
+Po 0 26851 25668 26850 25669 158 -1
+De 15 0 4 0 0
+Po 0 26851 25747 26850 25748 552 -1
+De 15 0 4 0 0
+Po 0 26851 25668 26851 25747 552 -1
+De 15 0 4 0 0
+Po 0 25827 24784 25688 24784 552 -1
+De 15 0 5 0 0
+Po 0 25688 24784 25669 24803 552 -1
+De 15 0 5 0 0
+Po 0 26457 24784 25827 24784 158 -1
+De 15 0 5 0 400000
+Po 0 25827 24784 25767 24784 158 -1
+De 15 0 5 0 0
+Po 0 25767 24784 25748 24803 158 -1
+De 15 0 5 0 0
+Po 0 27717 23780 27717 23739 552 -1
+De 15 0 6 0 0
+Po 0 27245 24252 27717 23780 158 -1
+De 15 0 6 0 400000
+Po 0 27717 23739 27795 23661 552 -1
+De 15 0 6 0 0
+$EndTRACK
+$ZONE
+$EndZONE
+$EndBOARD
