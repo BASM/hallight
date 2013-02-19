@@ -27,6 +27,7 @@
 #include <avr/io.h>
 #include <avr/wdt.h>
 #include <util/delay.h>
+#include <util/twi.h>
 
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
@@ -64,96 +65,110 @@ int TwiWaitInt()
   return 0;
 }
 
+#define TWI_ERRVERB
+#ifdef TWI_ERRVERB
+int twi_err=0;
+#define TWI_ERR(a) twi_err=a
+#else
+#define TWI_ERR()
+#endif
+
+int twi_p_start(){
+  TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
+  if(TwiWaitInt())             {TWI_ERR(1); return 1;}
+  if( (TW_STATUS != TW_START) &&
+      (TW_STATUS != TW_REP_START) ){
+    printf("STAT: %x\n", TW_STATUS);
+    TWI_ERR(2); return 2;}
+  return 0;
+}
+
+int twi_p_restart(){
+  TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
+  if(TwiWaitInt())              {TWI_ERR(3); return 3;}
+  if(TW_STATUS != TW_REP_START) {TWI_ERR(4); return 4;}
+  return 0;
+}
+
+/* Type:
+ * * TW_READ
+ * * TW_WRITE
+ */
+int twi_p_sla(char dev, int type)
+{
+  TWDR = (dev<<1) | type;
+  TWCR = (1<<TWINT) | (1<<TWEN);
+  if(TwiWaitInt())                 {TWI_ERR(5); return 5;}
+  if(type==TW_WRITE) {
+    if(TW_STATUS != TW_MT_SLA_ACK) {TWI_ERR(6); return 6;}
+  }else{//type==TW_READ
+    if(TW_STATUS != TW_MR_SLA_ACK) {TWI_ERR(7); return 7;}
+  }
+  return 0;
+}
+
+int twi_p_write(uint8_t data)
+{
+  TWDR = data;
+  TWCR = (1<<TWINT) | (1<<TWEN);
+  if(TwiWaitInt())                {TWI_ERR(7); return 7;}
+  if(TW_STATUS != TW_MT_DATA_ACK) {TWI_ERR(8); return 8;}
+  return 0;
+}
+
+#define NOLAST 0
+#define LAST 1
+int twi_p_read(int last)
+{
+  if(last==NOLAST)
+    TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
+  else
+    TWCR = (1<<TWINT) | (1<<TWEN);
+  if(TwiWaitInt())                {TWI_ERR(9);  return -9;}
+
+  if(last==NOLAST){
+    if(TW_STATUS != TW_MR_DATA_ACK) {TWI_ERR(10); return -10;}
+  }else{
+    if(TW_STATUS != TW_MR_DATA_NACK) {TWI_ERR(11); return -11;}
+  }
+
+  return TWDR;
+}
+
+
+int twi_p_stop()
+{
+  TWCR = (1<<TWINT)|(1<<TWSTO)| (1<<TWEN);
+  return 0;
+}
+
+
 int TwiRequestWrite(uchar dev, uchar addr)
 {
-  //1. START
-  TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
-  //2. Wait
-  if(TwiWaitInt())         return 1;
+  if(twi_p_start()) return 1;
+  if(twi_p_sla(dev, TW_WRITE)) return 2;
+  if(twi_p_write(addr)) return 3;
+  twi_p_stop();
+  _delay_us(100);
+  
+  if(twi_p_restart()) return 4;
+  if(twi_p_sla(dev, TW_WRITE)) return 5;
+  if(twi_p_write(addr)) return 6;
 
-  //3. Check TWI Status 
-  if( (TWSR&0xF8) != 0x10) return 2;
- 
-  //3. Load SLA_W
-  TWDR = dev<<1;
-  TWCR = (1<<TWINT) | (1<<TWEN);
-  
-  //4. Wait (inc. ACK)
-  if(TwiWaitInt())         return 3;
-
-  //5. Check TWI Status
-  if( (TWSR&0xF8) != 0x18) return 4;
-  
-  //5. Load ADDR
-  TWDR = addr;
-  TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
-  TwiWaitInt();//)         return 5; 
-  //if(TwiWaitInt())         return 5; 
-  
-  //6. Wait (inc. ACK)
-  //if( (TWSR&0xF8) != 0x28) return 6;
-  
- // FIXME need stop?
-  // START
-  TWCR = (1<<TWINT)|(1<<TWSTA)| (1<<TWEN);
-  if(TwiWaitInt())         return 7; 
-  TWDR = (dev << 1); //Write bit
-  TWCR = (1<<TWINT) | (1<<TWEN);
-  if(TwiWaitInt())         return 8; 
-  //*/
   return 0;
 }
 int TwiRequestRead(uchar dev, uchar addr)
 {
-  //1. START
-  TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
-  //2. Wait
-  if(TwiWaitInt()){
-    printf("No start\n");
-    return 10;
-  }
-  //3. Check TWI Status 
-  if( (TWSR&0xF8) != 0x10) return 1;
- 
-  //3. Load SLA_W
-  TWDR = dev<<1;
-  TWCR = (1<<TWINT) | (1<<TWEN);
-  
-  //4. Wait (inc. ACK)
-  if(TwiWaitInt()) return 10;
+  if(twi_p_start()) return 1;
+  if(twi_p_sla(dev, TW_WRITE)) return 2;
+  if(twi_p_write(addr)) return 3;
 
-  //5. Check TWI Status
-  if( (TWSR&0xF8) != 0x18) return 2;
-  
-  //5. Load ADDR
-  TWDR = addr;
-  TWCR = (1<<TWINT) | (1<<TWEN);
-  if(TwiWaitInt()){
-    printf("Addres on dev don't get\n");
-    return 10; 
-  }
-  //6. Wait (inc. ACK)
-  if( (TWSR&0xF8) != 0x28) return 3;
-  
- // FIXME need stop?
-  // START
-  TWCR = (1<<TWINT)|(1<<TWSTA)| (1<<TWEN);
-  if(TwiWaitInt()) return 11; 
-  TWDR = (dev << 1) | 1;
-  TWCR = (1<<TWINT) | (1<<TWEN);
-  if(TwiWaitInt()) return 12; 
-  //*/
+  if(twi_p_restart()) return 4;
+  if(twi_p_sla(dev, TW_READ)) return 5;
   return 0;
 }
 
 
-
-uchar TwiRead()
-{
-  TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
-   if(TwiWaitInt()) return 10;
-   return TWDR;
-}
 
 uchar TwiReadStop()
 {
@@ -163,46 +178,36 @@ uchar TwiReadStop()
   return TWDR;
 }
 
-uchar TwiWrite(unsigned char byte)
+uchar TwiWriteStop()
 {
-  TWDR = byte;
-  //TWCR = (1<<TWINT) | (1<<TWEN);
-  TWCR = (1<<TWINT) | (1<<TWEN);
-   if(TwiWaitInt()) return 10;
-   return 0;
-}
-
-uchar TwiWriteStop(unsigned char byte)
-{
-  TWDR = byte;
   TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
-  if(TwiWaitInt())
-    return 0;
-  //TWCR = (1<<TWINT)|(1<<TWSTO)| (1<<TWEN);
   return 0;
 }
 
 int BH1772GLC_init(uchar addr)
 {
-  int res;
-  if(res=TwiRequestWrite(addr, 0x40)){
-    printf("Err to write 0x40: %i\r\n", res);
+  int err=0;
+  if((err=TwiRequestWrite(addr, 0x40))){
+    printf("RW on: %i\r\n", err);
     return -1;
   }
-  TwiWriteStop(2);
+  twi_p_write(2);
+  twi_p_stop();
   return 0;
 }
 
 int BH1772GLC_initcheck(uchar addr)
 {
       //0x38
-  int res,a,b,err;
+  int res,err;
   (void)err;
-  if(res=TwiRequestRead(addr, 0x40)){
-    printf("Error to read term: %i\r\n", res);
+  if(TwiRequestRead(addr, 0x40)){
+    printf("Error to read term: %i\r\n", twi_err);
     return -1;
   }
-  res=TwiReadStop();
+  res=twi_p_read(LAST);
+  twi_p_stop();
+  //if(res<0) error
   return res;
 }
 
@@ -210,24 +215,22 @@ int BH1772GLC_get_shot(uchar addr)
 {
       //0x38
   int res,a,b,err;
-  (void)err;
-      /*
-  if(TwiRequestWrite(addr, 0x44)){
+  if(err=TwiRequestWrite(addr, 0x44)){
+    printf("RW on: %i\r\n", err);
+    return -1;
+  }
+  twi_p_write(2);
+  twi_p_stop();
+
+  if(TwiRequestRead(addr, 0x4C)){
     printf("Error to read term :-(\n");
     return -1;
   }
-  TwiWriteStop(2);
 
-  _delay_ms(1000);*/
-
-  if(TwiRequestRead(addr, 0x42)){
-    printf("Error to read term :-(\n");
-    return -1;
-  }
-
-  a=TwiRead();
-  b=TwiReadStop();
-  res=(a<<8)|b;
+  a=twi_p_read(NOLAST);
+  b=twi_p_read(LAST);
+  res=(b<<8)|a;
+  twi_p_stop();
 
   return res;
 }
@@ -249,13 +252,16 @@ int main(void)
       int term=0,sens=0;
       //int amb = _get_shot(TERM_I2C_PREF);
       //term = MAX6634_get_shot(TERM_I2C_PREF);
-//      res = BH1772GLC_init(AMB_PREF);
-//      printf("Init result: %i\r\n", res);
-//      res = BH1772GLC_initcheck(AMB_PREF);
-//      printf("Init check: %i\r\n", res);
+      printf("=================\r\n");
+      res = BH1772GLC_init(AMB_PREF);
+      printf("Init result: %i\r\n", res);
+      res = BH1772GLC_initcheck(AMB_PREF);
+      printf("Init check: %x (err=%i)\r\n", res, twi_err);
+     
       sens = BH1772GLC_get_shot(AMB_PREF);
-      /* main event loop */
       printf("Hello world: %i, res: %i, sens: %i (%x)\r\n", i++, term, sens, sens);
+      //_delay_ms(5000);
+      /* main event loop */
       //printf("Hello world: %i, res: %i\r\n", i++);
 
     }
