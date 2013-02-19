@@ -104,6 +104,13 @@ int main(void)
     cli();
 
     DDRD=0xFE;
+
+    //CONFIG INPUT FOR EKMC1601111
+    DDRB&=~(1<<0);
+    //PORTC&=~(1<<0);
+    PORTB&=~(1<<0);//
+
+
     uart_init();
     uart_stdio();
 
@@ -112,8 +119,11 @@ int main(void)
     int BH1772_init=0;
 
     int i=0;
+    int EKMC1601111=0;
+    int sens;
     for(;;){
-      int sens;
+
+      EKMC1601111=PINB&1;
 
       if(BH1772_init == 0){
         res = BH1772GLC_init(AMB_PREF);
@@ -126,6 +136,7 @@ int main(void)
         }
       }
 
+          //*
       if(BH1772GLC_init) {
         sens = BH1772GLC_get_shot(AMB_PREF);
         if(sens == 0) { //dark or error
@@ -134,9 +145,9 @@ int main(void)
             BH1772_init=0;
           }
         }else{
-          printf("Current ALS is: %i (%x)\r\n", sens, sens);
         }
-      }
+      }   // */
+      printf("Current ALS is: %i (%x),EKMS: %i\r\n", sens, sens, EKMC1601111);
     }
 
   return res;
