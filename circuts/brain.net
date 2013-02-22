@@ -1,159 +1,154 @@
-# EESchema Netlist Version 1.1 created  Ср. 20 февр. 2013 00:21:54
+# EESchema Netlist Version 1.1 created  Сб. 23 февр. 2013 01:21:05
 (
- ( /5123A30D CP4 C2 RGB
-  ( 1 N-000009 )
-  ( 2 GND )
+ ( /5123DEC5 $noname  U2 IRU1015 {Lib=IRU1015}
+  (    1 GND )
+  (    2 +3.3V )
+  (    3 +12V )
  )
- ( /5123A31B CP4 C3 RGB
-  ( 1 N-000037 )
-  ( 2 GND )
+ ( /5123DDCC $noname  P9 CONN_2 {Lib=CONN_2}
+  (    1 GND )
+  (    2 +12V )
  )
- ( /5123A31D CP4 C4 RGB
-  ( 1 N-000005 )
-  ( 2 GND )
+ ( /5123C27B $noname  U1 ULN2803L {Lib=ULN2803L}
+  (    1 N-000015 )
+  (    2 N-000015 )
+  (    3 N-000009 )
+  (    4 N-000009 )
+  (    5 N-000038 )
+  (    6 N-000038 )
+  (    7 ? )
+  (    8 ? )
+  (    9 GND )
+  (   10 ? )
+  (   11 ? )
+  (   12 ? )
+  (   13 N-000024 )
+  (   14 N-000024 )
+  (   15 N-000037 )
+  (   16 N-000037 )
+  (   17 N-000036 )
+  (   18 N-000036 )
  )
- ( /5123A2F4 SIL-3 D1 TSOP34836
-  ( 1 N-000034 )
-  ( 2 GND )
-  ( 3 +3.3V )
+ ( /5123BC2C $noname  R4 R1.5k {Lib=R}
+  (    1 N-000023 )
+  (    2 GND )
  )
- ( /5123A551 SM0805 D2 LED
-  ( 1 N-000001 )
-  ( 2 GND )
+ ( /5123A551 $noname  D2 LED {Lib=LED}
+  (    1 N-000002 )
+  (    2 GND )
  )
- ( /5123A2EE TQFP32 IC1 ATMEGA328P-A
-  ( 1 N-000023 )
-  ( 2 ? )
-  ( 3 GND )
-  ( 4 +3.3V )
-  ( 5 GND )
-  ( 6 +3.3V )
-  ( 7 ? )
-  ( 8 ? )
-  ( 9 N-000027 )
-  ( 10 N-000026 )
-  ( 11 ? )
-  ( 12 N-000029 )
-  ( 13 N-000012 )
-  ( 14 ? )
-  ( 15 N-000038 )
-  ( 16 N-000032 )
-  ( 17 N-000031 )
-  ( 18 +3.3V )
-  ( 19 ? )
-  ( 20 ? )
-  ( 21 GND )
-  ( 22 ? )
-  ( 23 ? )
-  ( 24 ? )
-  ( 25 ? )
-  ( 26 ? )
-  ( 27 N-000002 )
-  ( 28 N-000003 )
-  ( 29 N-000030 )
-  ( 30 N-000035 )
-  ( 31 N-000036 )
-  ( 32 N-000034 )
+ ( /5123A3C8 $noname  R3 R68 {Lib=R}
+  (    1 N-000028 )
+  (    2 N-000002 )
  )
- ( /5123A2F6 SIL-3 K1 EKMS
-  ( 1 N-000023 )
-  ( 2 GND )
-  ( 3 +3.3V )
+ ( /5123A3B8 $noname  P8 CONN_1 {Lib=CONN_1}
+  (    1 N-000030 )
  )
- ( /5123A2FA SIL-1 P1 CONN_1
-  ( 1 N-000030 )
+ ( /5123A388 $noname  P7 CONN_1 {Lib=CONN_1}
+  (    1 N-000032 )
  )
- ( /5123A169 SIL-1 P2 CONN_1
-  ( 1 N-000038 )
+ ( /5123A31D $noname  C4 RGB {Lib=CP1}
+  (    1 +12V )
+  (    2 N-000024 )
  )
- ( /5123A168 SIL-1 P3 CONN_1
-  ( 1 N-000032 )
+ ( /5123A31B $noname  C3 RGB {Lib=CP1}
+  (    1 +12V )
+  (    2 N-000037 )
  )
- ( /5123A2F3 SIL-2 P4 UART
-  ( 1 N-000035 )
-  ( 2 N-000036 )
+ ( /5123A30D $noname  C2 RGB {Lib=CP1}
+  (    1 +12V )
+  (    2 N-000036 )
  )
- ( /5123A2F7 SIL-4 P5 I2C
-  ( 1 +3.3V )
-  ( 2 N-000002 )
-  ( 3 N-000003 )
-  ( 4 GND )
+ ( /00000000 $noname  P6 RGB {Lib=CONN_4}
+  (    1 +12V )
+  (    2 N-000036 )
+  (    3 N-000037 )
+  (    4 N-000024 )
  )
- ( /00000000 SIL-4 P6 RGB
-  ( 1 GND )
-  ( 2 N-000009 )
-  ( 3 N-000037 )
-  ( 4 N-000005 )
+ ( /5123A169 $noname  P2 CONN_1 {Lib=CONN_1}
+  (    1 N-000015 )
  )
- ( /5123A388 SIL-1 P7 CONN_1
-  ( 1 N-000031 )
+ ( /5123A168 $noname  P3 CONN_1 {Lib=CONN_1}
+  (    1 N-000033 )
  )
- ( /5123A3B8 SIL-1 P8 CONN_1
-  ( 1 N-000029 )
+ ( /5123A2FA $noname  P1 CONN_1 {Lib=CONN_1}
+  (    1 N-000031 )
  )
- ( /5123DDCC SIL-2 P9 CONN_2
-  ( 1 GND )
-  ( 2 +12V )
+ ( /5123A065 $noname  R1 R33k {Lib=R}
+  (    1 +3.3V )
+  (    2 N-000007 )
  )
- ( /5123A065 R3 R1 R33k
-  ( 1 +3.3V )
-  ( 2 N-000003 )
+ ( /5123A2F9 $noname  R2 R33k {Lib=R}
+  (    1 +3.3V )
+  (    2 N-000006 )
  )
- ( /5123A2F9 R3 R2 R33k
-  ( 1 +3.3V )
-  ( 2 N-000002 )
+ ( /5123A2F8 $noname  VsFilter1 CP1 {Lib=CP1}
+  (    1 +3.3V )
+  (    2 GND )
  )
- ( /5123A3C8 SM0805 R3 R68
-  ( 1 N-000027 )
-  ( 2 N-000001 )
+ ( /5123A2F7 $noname  P5 I2C {Lib=CONN_4}
+  (    1 +3.3V )
+  (    2 N-000006 )
+  (    3 N-000007 )
+  (    4 GND )
  )
- ( /5123BC2C R1 R4 R1.5k
-  ( 1 N-000023 )
-  ( 2 GND )
+ ( /5123A2F6 $noname  K1 EKMS {Lib=CONN_3}
+  (    1 N-000023 )
+  (    2 GND )
+  (    3 +3.3V )
  )
- ( /5123C27B DIP-18__300 U1 ULN2803L
-  ( 1 N-000038 )
-  ( 2 N-000038 )
-  ( 3 N-000012 )
-  ( 4 N-000012 )
-  ( 5 N-000026 )
-  ( 6 N-000026 )
-  ( 7 ? )
-  ( 8 ? )
-  ( 9 GND )
-  ( 10 ? )
-  ( 11 ? )
-  ( 12 ? )
-  ( 13 N-000005 )
-  ( 14 N-000005 )
-  ( 15 N-000037 )
-  ( 16 N-000037 )
-  ( 17 N-000009 )
-  ( 18 N-000009 )
+ ( /5123A2F4 $noname  D1 TSOP34836 {Lib=TSOP34836}
+  (    1 N-000034 )
+  (    2 GND )
+  (    3 +3.3V )
  )
- ( /5123DEC5 SIL-3 U2 IRU1015
-  ( 1 GND )
-  ( 2 +3.3V )
-  ( 3 +12V )
+ ( /5123A2F3 $noname  P4 UART {Lib=CONN_2}
+  (    1 N-000027 )
+  (    2 N-000035 )
  )
- ( /5123A2F8 C1V5 VsFilter1 CP1
-  ( 1 +3.3V )
-  ( 2 GND )
+ ( /5123A2EE TQFP32  IC1 ATMEGA328P-A {Lib=ATMEGA328P-A}
+  (    1 N-000023 )
+  (    2 ? )
+  (    3 GND )
+  (    4 +3.3V )
+  (    5 GND )
+  (    6 +3.3V )
+  (    7 ? )
+  (    8 ? )
+  (    9 N-000028 )
+  (   10 N-000038 )
+  (   11 ? )
+  (   12 N-000030 )
+  (   13 N-000009 )
+  (   14 ? )
+  (   15 N-000015 )
+  (   16 N-000033 )
+  (   17 N-000032 )
+  (   18 +3.3V )
+  (   19 ? )
+  (   20 ? )
+  (   21 GND )
+  (   22 ? )
+  (   23 ? )
+  (   24 ? )
+  (   25 ? )
+  (   26 ? )
+  (   27 N-000006 )
+  (   28 N-000007 )
+  (   29 N-000031 )
+  (   30 N-000027 )
+  (   31 N-000035 )
+  (   32 N-000034 )
  )
 )
 *
 { Allowed footprints by component:
-$component C2
- CP*
- SM*
-$endlist
-$component C3
- CP*
- SM*
-$endlist
-$component C4
- CP*
- SM*
+$component R4
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
 $endlist
 $component D2
  LED-3MM
@@ -164,9 +159,24 @@ $component D2
  LED-1206
  LEDV
 $endlist
-$component IC1
- 28DIP-ELL600
- 28dip600
+$component R3
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component C4
+ CP*
+ SM*
+$endlist
+$component C3
+ CP*
+ SM*
+$endlist
+$component C2
+ CP*
+ SM*
 $endlist
 $component R1
  R?
@@ -182,23 +192,114 @@ $component R2
  R?-*
  SM1206
 $endlist
-$component R3
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R4
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
 $component VsFilter1
  CP*
  SM*
 $endlist
+$component IC1
+ 28DIP-ELL600
+ 28dip600
+$endlist
 $endfootprintlist
 }
+{ Pin List by Nets
+Net 1 "GND" "GND"
+ IC1 21
+ R4 2
+ P9 1
+ K1 2
+ P5 4
+ VsFilter1 2
+ D1 2
+ IC1 3
+ IC1 5
+ U2 1
+ D2 2
+ U1 9
+Net 2 "" ""
+ D2 1
+ R3 2
+Net 3 "+12V" "+12V"
+ C4 1
+ C3 1
+ P9 2
+ U2 3
+ C2 1
+ P6 1
+Net 6 "" ""
+ IC1 27
+ R2 2
+ P5 2
+Net 7 "" ""
+ P5 3
+ R1 2
+ IC1 28
+Net 9 "" ""
+ U1 3
+ U1 4
+ IC1 13
+Net 15 "" ""
+ U1 1
+ U1 2
+ IC1 15
+ P2 1
+Net 16 "+3.3V" "+3.3V"
+ U2 2
+ P5 1
+ K1 3
+ VsFilter1 1
+ IC1 18
+ D1 3
+ R2 1
+ R1 1
+ IC1 4
+ IC1 6
+Net 23 "" ""
+ K1 1
+ R4 1
+ IC1 1
+Net 24 "" ""
+ P6 4
+ U1 14
+ U1 13
+ C4 2
+Net 27 "" ""
+ P4 1
+ IC1 30
+Net 28 "" ""
+ IC1 9
+ R3 1
+Net 30 "" ""
+ IC1 12
+ P8 1
+Net 31 "" ""
+ P1 1
+ IC1 29
+Net 32 "" ""
+ P7 1
+ IC1 17
+Net 33 "" ""
+ IC1 16
+ P3 1
+Net 34 "" ""
+ IC1 32
+ D1 1
+Net 35 "" ""
+ P4 2
+ IC1 31
+Net 36 "" ""
+ U1 17
+ U1 18
+ P6 2
+ C2 2
+Net 37 "" ""
+ U1 16
+ P6 3
+ C3 2
+ U1 15
+Net 38 "" ""
+ IC1 10
+ U1 6
+ U1 5
+}
+#End

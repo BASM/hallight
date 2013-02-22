@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Ср. 20 февр. 2013 00:21:34
+EESchema Schematic File Version 2  date Сб. 23 февр. 2013 01:20:58
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -37,7 +37,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "19 feb 2013"
+Date "22 feb 2013"
 Rev ""
 Comp ""
 Comment1 ""
@@ -45,15 +45,12 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L IRU1015 U2
-U 1 1 5123DEC5
-P 3300 2300
-F 0 "U2" H 3200 2250 60  0000 C CNN
-F 1 "IRU1015" H 3300 2450 60  0000 C CNN
-	1    3300 2300
-	1    0    0    -1  
-$EndComp
+Wire Wire Line
+	10150 3200 10150 3600
+Wire Wire Line
+	10150 3600 10300 3600
+Wire Wire Line
+	10300 3600 10300 3550
 Wire Wire Line
 	2700 3300 2700 3150
 Wire Wire Line
@@ -74,10 +71,6 @@ Wire Wire Line
 	6600 2700 6500 2700
 Wire Wire Line
 	8350 2700 6700 2700
-Wire Wire Line
-	10550 2550 10550 2500
-Wire Wire Line
-	10550 2500 10650 2500
 Connection ~ 10150 3400
 Wire Wire Line
 	10650 2800 10450 2800
@@ -257,8 +250,6 @@ Wire Wire Line
 	10400 3400 9900 3400
 Wire Wire Line
 	9900 3400 9900 3100
-Wire Wire Line
-	10150 3500 10150 3200
 Connection ~ 10150 2800
 Connection ~ 10400 3000
 Connection ~ 9900 2700
@@ -271,6 +262,37 @@ Wire Wire Line
 	2700 2800 2700 2950
 Wire Wire Line
 	2700 2950 2600 2950
+Wire Wire Line
+	10650 2500 10600 2500
+Wire Wire Line
+	10600 2500 10600 2450
+$Comp
+L +12V #PWR?
+U 1 1 5127E11D
+P 10300 3550
+F 0 "#PWR?" H 10300 3500 20  0001 C CNN
+F 1 "+12V" H 10300 3650 30  0000 C CNN
+	1    10300 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L +12V #PWR?
+U 1 1 5127E0C3
+P 10600 2450
+F 0 "#PWR?" H 10600 2400 20  0001 C CNN
+F 1 "+12V" H 10600 2550 30  0000 C CNN
+	1    10600 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L IRU1015 U2
+U 1 1 5123DEC5
+P 3300 2300
+F 0 "U2" H 3200 2250 60  0000 C CNN
+F 1 "IRU1015" H 3300 2450 60  0000 C CNN
+	1    3300 2300
+	1    0    0    -1  
+$EndComp
 $Comp
 L GND #PWR01
 U 1 1 5123DDB1
@@ -422,22 +444,13 @@ F 1 "CONN_1" H 6900 3155 30  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR09
-U 1 1 5123A34F
-P 10150 3500
-F 0 "#PWR09" H 10150 3500 30  0001 C CNN
-F 1 "GND" H 10150 3430 30  0001 C CNN
-	1    10150 3500
-	1    0    0    -1  
-$EndComp
-$Comp
 L CP1 C4
 U 1 1 5123A31D
 P 10400 3200
 F 0 "C4" H 10450 3300 50  0000 L CNN
 F 1 "RGB" H 10450 3100 50  0000 L CNN
 	1    10400 3200
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L CP1 C3
@@ -446,7 +459,7 @@ P 10150 3000
 F 0 "C3" H 10200 3100 50  0000 L CNN
 F 1 "RGB" H 10200 2900 50  0000 L CNN
 	1    10150 3000
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L CP1 C2
@@ -455,16 +468,7 @@ P 9900 2900
 F 0 "C2" H 9950 3000 50  0000 L CNN
 F 1 "RGB" H 9950 2800 50  0000 L CNN
 	1    9900 2900
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR010
-U 1 1 5123A2ED
-P 10550 2550
-F 0 "#PWR010" H 10550 2550 30  0001 C CNN
-F 1 "GND" H 10550 2480 30  0001 C CNN
-	1    10550 2550
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L CONN_4 P6
