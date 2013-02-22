@@ -55,6 +55,13 @@ int BH1772GLC_init(uint8_t addr)
   }
   twi_p_write(2);
   twi_p_stop();
+  
+  if((err=twi_req_write(addr, 0x5A))){
+    printf("RW on: %i\r\n", err);
+    return -1;
+  }
+  twi_p_write(254);
+  twi_p_stop();
   return 0;
 }
 
