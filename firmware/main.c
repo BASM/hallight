@@ -51,14 +51,14 @@ int BH1772GLC_init(uint8_t addr)
 {
   int err=0;
   if((err=twi_req_write(addr, 0x40))){
-    printf("RW on: %i\r\n", err);
+    printf("RW on: %i\n", err);
     return -1;
   }
   twi_p_write(2);
   twi_p_stop();
   
   if((err=twi_req_write(addr, 0x5A))){
-    printf("RW on: %i\r\n", err);
+    printf("RW on: %i\n", err);
     return -1;
   }
   twi_p_write(254);
@@ -72,7 +72,7 @@ int BH1772GLC_initcheck(uint8_t addr)
   int res,err;
   (void)err;
   if(twi_req_read(addr, 0x40)){
-    printf("Error to read term: %i\r\n", twi_err);
+    printf("Error to read term: %i\n", twi_err);
     return -1;
   }
   res=twi_p_read(LAST);
@@ -86,14 +86,14 @@ int BH1772GLC_get_shot(uint8_t addr)
       //0x38
   int res,a,b,err;
   if(err=twi_req_write(addr, 0x44)){
-    printf("RW on: %i\r\n", err);
+    printf("RW on: %i\n", err);
     return 0;
   }
   twi_p_write(2);
   twi_p_stop();
 
   if(twi_req_read(addr, 0x4C)){
-    printf("Error to read term :-(\r\n");
+    printf("Error to read term :-(\n");
     return 0;
   }
 
@@ -204,7 +204,7 @@ int main(void)
           res = BH1772GLC_initcheck(AMB_PREF);
         }
         if(res==2) { 
-          printf("Module BH1772 init success\r\n");
+          printf("Module BH1772 init success\n");
           BH1772_init=1;
         }
       }
@@ -220,7 +220,7 @@ int main(void)
         }else{
         }
       }   // */
-      printf("Current ALS is: %i (%x),EKMS: %i\r\n", sens, sens, EKMC1601111);
+      printf("Current ALS is: %i (%x),EKMS: %i\n", sens, sens, EKMC1601111);
       //puts("A");
       //_delay_ms(1000);
       i++;
