@@ -1,6 +1,6 @@
 /*
  * main.c  - Main of firmware
- * Creation Date: 2012-05-20
+ * Creation Date: 2013-05-20
  *
  * Copyright (C) 2012 Leonid Myravjev (asm@asm.pp.ru)
  *
@@ -21,6 +21,7 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
+
 
 #define DEBUG
 #ifdef DEBUG
@@ -113,10 +114,41 @@ int main(void)
     DDRD=0xFE;
 
     //CONFIG INPUT FOR EKMC1601111
-    DDRB&=~(1<<0);
+    DDRD&=~(1<<3);
     //PORTC&=~(1<<0);
-    PORTB&=~(1<<0);//
+    PORTD&=~(1<<3);//
 
+
+#define PINOUT(port, num) \
+    DDR##port |= (1<<num);
+
+#define PSET(port, num) \
+    PORT##port |= (1<<num);
+
+#define PCLR(port, num) \
+    PORT##port &= ~(1<<num);
+    
+    DDRD |= (1<<5);
+
+    //R:
+    DDRB |= (1<<1);
+    //G:
+    DDRB |= (1<<3);
+    //B:
+    DDRD |= (1<<6);
+
+#define SET_R() \
+    PORTB |= (1<<1);
+#define CLR_R() \
+    PORTB &= ~(1<<1);
+#define SET_G() \
+    PORTB |= (1<<3);
+#define CLR_G() \
+    PORTB &= ~(1<<3);
+#define SET_B() \
+    PORTD |= (1<<6);
+#define CLR_B() \
+    PORTD &= ~(1<<6);
 
     uart_init();
     uart_stdio();
@@ -129,8 +161,42 @@ int main(void)
     int EKMC1601111=0;
     int sens;
     for(;;){
+      switch(i%5){
+        case 0:
+          CLR_R();
+          CLR_G();
+          CLR_B();
+          break;
+        case 1:
+          SET_R();
+          CLR_G();
+          CLR_B();
+          break;
+        case 2:
+          CLR_R();
+          SET_G();
+          CLR_B();
+          break;
+        case 3:
+          CLR_R();
+          CLR_G();
+          SET_B();
+          break;
+        case 4:
+          SET_R();
+          SET_G();
+          SET_B();
+          break;
+      }
 
-      EKMC1601111=PINB&1;
+
+      if(i%2){
+        PORTD |= (1<<5);
+      }else{
+        PORTD &= ~(1<<5);
+      }
+
+      EKMC1601111=(PIND>>3)&3;
 
       if(BH1772_init == 0){
         res = BH1772GLC_init(AMB_PREF);
@@ -155,6 +221,9 @@ int main(void)
         }
       }   // */
       printf("Current ALS is: %i (%x),EKMS: %i\r\n", sens, sens, EKMC1601111);
+      //puts("A");
+      //_delay_ms(1000);
+      i++;
     }
 
   return res;
