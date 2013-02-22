@@ -1,3 +1,6 @@
 [submodule "kcel"]
 	path = kcel
 	url = git@github.com:BASM/kcel.git
+[submodule "firmware/lib/libavr"]
+	path = firmware/lib/libavr
+	url = git@github.com:BASM/libavr.git
