@@ -3,13 +3,14 @@
 #DEVICE = avrt2313
 #DEVICE = at90s2313
 #DEVICE = attiny15
-DEVICE = atmega168
+#DEVICE = atmega168
+DEVICE = atmega328p
 #DEVICE = atmega88
 #DEVICE = atmega168
 #TYPEPROG=siprog -P /dev/ttyS1
 TYPEPROG=stk500v2 -P avrdoper
 #TYPEPROG=stk500v2 -P /dev/ttyACM2
-AVRDUDE = avrdude -c ${TYPEPROG} -p m168
+AVRDUDE = avrdude -c ${TYPEPROG} -p m328p
 #AVRDUDE = avrdude -c ${TYPEPROG} -p m168
 #AVRDUDE = avrdude  -p m88 -c stk500v2 -P avrdoper
 
@@ -114,6 +115,10 @@ fuse_mega88:	# only needed for atmega88
 
 fuse_mega168:	# only needed for atmega168
 	$(AVRDUDE) -U hfuse:w:0xdf:m -U lfuse:w:0xe7:m
+
+## USE internal 8 mhz
+#fuse_mega328P:	# only needed for atmega328P
+#	$(AVRDUDE) -U hfuse:w:0xdf:m -U lfuse:w:0xe7:m
 
 clean:
 	rm -f main.hex main.lst main.obj main.cof main.list main.map main.eep.hex main.bin *.o usbdrv/*.o main.s usbdrv/oddebug.s usbdrv/usbdrv.s
