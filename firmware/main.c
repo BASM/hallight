@@ -110,7 +110,8 @@ int BH1772GLC_get_shot(uint8_t addr)
   return res;
 }
 
-int EKMC1601111=0;
+#define EKMC_MAX 0x0Fff;
+uint16_t EKMC1601111=0;
 
 int cycle_event()
 {
@@ -132,7 +133,7 @@ int cycle_event()
 
 int time=0;
 int ir_time=0;
-
+uint16_t gtime=0;
 //ISR_NONBLOCK;
 //ISR_BLOCK;
 
@@ -140,10 +141,31 @@ int r_its=100;
 int g_its=0;
 int b_its=0;
 
+uint8_t leds_status=0;
+
 ISR(TIMER0_OVF_vect) {
   if(ir_time <= (9000*2))
     ir_time+=32;
 
+  gtime++;
+  if((gtime%64)==0){
+    if(EKMC1601111>0){
+      EKMC1601111--;;
+    }
+    if(leds_status==0){
+      if(r_its>0) r_its--;
+      else
+        if(g_its>0) g_its--;
+        else
+          if(b_its>0) b_its--;
+    }else{
+      if(g_its<0xff) g_its++;
+      else
+        if(b_its<0xff) b_its++;
+        else
+          if(r_its<0xff) r_its++;
+    }
+  }
   time++;
   if(time>=256){
     if(r_its!=0)
@@ -175,7 +197,8 @@ ISR(INT0_vect)
 
 ISR(INT1_vect)
 {
-  EKMC1601111=(PIND>>3)&3;
+  if((PIND>>3)&3)
+    EKMC1601111=EKMC_MAX;
 }  //*/
 
 int timer0_init()
@@ -252,6 +275,20 @@ int ir_dumpresult(char* array, int size){
   }
   return 0;
 }
+        
+
+void leds_switchon(){
+  leds_status=1;
+  //r_its=0xff;
+  //g_its=0xff;
+  //b_its=0xff;
+}
+void leds_switchoff(){
+  leds_status=0;
+  //r_its=0x00;
+  //g_its=0x00;
+  //b_its=0x00;
+}
 
 int main(void)
 {
@@ -302,14 +339,6 @@ int main(void)
     int sens;
     sei();
     for(;;){
-
-
-      if(i%2){
-        PORTD |= (1<<5);
-      }else{
-        PORTD &= ~(1<<5);
-      }
-
       ///*
       if(BH1772_init == 0){
         res = BH1772GLC_init(AMB_PREF);
@@ -321,18 +350,36 @@ int main(void)
           BH1772_init=1;
         }
       }
+      ///////////////////////
+      /*
+      if(i%2){
+        PORTD |= (1<<5);
+      }else{
+        PORTD &= ~(1<<5);
+      }*/
 
-      if(BH1772GLC_init) {
-        sens = BH1772GLC_get_shot(AMB_PREF);
-        if(sens == 0) { //dark or error
-          int res = BH1772GLC_initcheck(AMB_PREF);
-          if(res!=2) { //not init, maybe error, or power reset.
-            BH1772_init=0;
+      if(EKMC1601111>0){
+        if(BH1772GLC_init) {
+          sens = BH1772GLC_get_shot(AMB_PREF);
+          if(sens == 0) { //dark or error
+            int res = BH1772GLC_initcheck(AMB_PREF);
+            if(res!=2) { //not init, maybe error, or power reset.
+              BH1772_init=0;
+            }
           }
-        }else{
+        }   // */
+        if (leds_status==0){
+            if(sens<=20)
+              leds_switchon();
         }
-      }   // */
-      //printf("Current ALS is: %i (%x),EKMS: %i, time:  %i, ftime: %i\n", sens, sens, EKMC1601111, time, ftime);
+        if(sens>=60)
+          leds_switchoff();
+
+      }
+      if(EKMC1601111==0){
+        leds_switchoff();
+      }
+      printf("Current ALS is: %i (%x),EKMS: %i\n", sens, sens, EKMC1601111);
       if(ir_update){
         ir_update=0;
         printf("RGB: %i, %i, %i\n", r_its, g_its, b_its);
