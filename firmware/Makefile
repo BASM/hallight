@@ -35,11 +35,11 @@ LDLIBS+=${AVR_LDLIBS}
 CFLAGS+=${AVR_CFLAGS}
 DEPS  +=${AVR_DEPS}
 
-#LIBS=avr
-#DEPLIBS+=$(LIBS:%=lib%)
-#LDLIBS+=$(foreach lib,${LIBS},-Llib/lib${lib} -l${lib})
-#LIBS_CFLAGS+=$(foreach inc,${LIBS},-Ilib/lib${inc}/include)
-#LIBDEPS=$(foreach lib,${LIBS},lib/lib${lib}/lib${lib}.a)
+LIBS=ir
+DEPLIBS+=$(LIBS:%=lib%)
+LDLIBS+=$(foreach lib,${LIBS},-Llib/lib${lib} -l${lib})
+CFLAGS+=$(foreach inc,${LIBS},-Ilib/lib${inc}/include)
+DEPS=$(foreach lib,${LIBS},lib/lib${lib}/lib${lib}.a)
 
 
 COMPILE = avr-gcc -Os -Wall -I. -mmcu=$(DEVICE) -DF_CPU=${FREQ} $(CFLAGS)
@@ -65,7 +65,7 @@ ${DEPLIBS}:
 	$(COMPILE) -S $< -o $@
 
 flash:	all
-	$(AVRDUDE) -F -U flash:w:main.hex:i
+	$(AVRDUDE) -U flash:w:main.hex:i
 
 
 # Fuse low byte:
@@ -117,8 +117,8 @@ fuse_mega168:	# only needed for atmega168
 	$(AVRDUDE) -U hfuse:w:0xdf:m -U lfuse:w:0xe7:m
 
 ## USE internal 8 mhz
-#fuse_mega328P:	# only needed for atmega328P
-#	$(AVRDUDE) -U hfuse:w:0xdf:m -U lfuse:w:0xe7:m
+fuse_mega328P:	# only needed for atmega328P
+	$(AVRDUDE) -U hfuse:w:0xdf:m -U lfuse:w:0xe2:m
 
 clean:
 	rm -f main.hex main.lst main.obj main.cof main.list main.map main.eep.hex main.bin *.o usbdrv/*.o main.s usbdrv/oddebug.s usbdrv/usbdrv.s

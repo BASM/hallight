@@ -30,6 +30,8 @@
 #define printf(...) {}
 #endif
 
+#include <string.h>
+
 #include <inttypes.h>
 #include <avr/io.h>
 #include <avr/wdt.h>
@@ -41,8 +43,11 @@
 #include <avr/eeprom.h>
 #include <avr/power.h>
 
+
 #include <twi.h>
 #include <uart.h>
+#include <support.h>
+#include <ir.h>
 
 #define TERM_I2C_PREF 0x48 /* 1001 000 */
 #define AMB_PREF 0x38 /* 1001 000 */
@@ -105,6 +110,149 @@ int BH1772GLC_get_shot(uint8_t addr)
   return res;
 }
 
+int EKMC1601111=0;
+
+int cycle_event()
+{
+
+}
+
+#define SET_R() \
+    PORTB |= (1<<1);
+#define CLR_R() \
+    PORTB &= ~(1<<1);
+#define SET_G() \
+    PORTB |= (1<<3);
+#define CLR_G() \
+    PORTB &= ~(1<<3);
+#define SET_B() \
+    PORTD |= (1<<6);
+#define CLR_B() \
+    PORTD &= ~(1<<6);
+
+int time=0;
+int ir_time=0;
+
+//ISR_NONBLOCK;
+//ISR_BLOCK;
+
+int r_its=100;
+int g_its=0;
+int b_its=0;
+
+ISR(TIMER0_OVF_vect) {
+  if(ir_time <= (9000*2))
+    ir_time+=32;
+
+  time++;
+  if(time>=256){
+    if(r_its!=0)
+      SET_R();
+    if(g_its!=0)
+      SET_G();
+    if(b_its!=0)
+      SET_B();
+    time=0;
+  }
+
+  if(time==r_its) CLR_R();
+  if(time==g_its) CLR_G();
+  if(time==b_its) CLR_B();
+}
+
+ir_event ev;
+int ftime=0;
+
+ISR(INT0_vect)
+{
+  ev.time=ir_time;
+  ev.stat=(!((PIND>>2)&1));
+  ir_time=0;
+  //if(ev.stat == 1)
+  //printf("%i,%i\n", (int) ev.time, (int) ev.stat);
+  ir_set_event(&ev);
+}
+
+ISR(INT1_vect)
+{
+  EKMC1601111=(PIND>>3)&3;
+}  //*/
+
+int timer0_init()
+{
+  //TCCR0A= (1<<COM0A1) | (1<<COM0B1) | (1<<WGM01) | (1<<WGM00);
+  //TCCR0A= (1<<COM0A1)  | (1<<WGM01) | (1<<WGM00);
+  TCCR0A= (1<<WGM01) | (1<<WGM00);
+  //TCCR0A= (1<<COM0B1) | (1<<WGM01) | (1<<WGM00);
+  TCCR0B= (1<<CS00); //1
+  //TCCR0B= (1<<CS01);//8
+  //TCCR0B= (1<<CS01) | (1<<CS00);//64
+  //TCCR0B= (1<<CS02);//128
+  //TCCR0B= (1<<CS02) | (1<<CS00); //1024
+  //TCCR0B= (1<<CS00);
+
+  TIMSK0 = (1<<TOIE0);
+
+  OCR0A = 0x01;
+  OCR0B = 0x50;
+  power_timer0_enable();
+
+  DDRBIT(D,6,1);
+
+
+}
+
+int extint_init()
+{
+  EICRA |= (1<<ISC10) | (1<<ISC00);
+  EICRA |= (1<<ISC10) | (1<<ISC00);
+  EIMSK |= (1<<INT0) | (1<<INT1);
+}
+
+int ir_update=0;
+
+int ir_dumpresult(char* array, int size){
+  static uint16_t code=0;
+  int ret=0;
+  if(size==0)
+    ret=1;
+  uint8_t a=array[0];
+  uint8_t b=array[1];
+  if( ((a == 0x40) && 
+      (b == 0xff)) || ret){
+    if(!ret)
+      code=(uint8_t)array[2]<<8|(uint8_t)array[3];
+    ir_update=1;
+    switch(code){
+      case 0x07f8:
+        if(r_its<256)
+          r_its++;
+        break;
+      case 0x45ba:
+        if(r_its>0)
+          r_its--;
+        break;
+      case 0x08f7:
+        if(g_its<256)
+          g_its++;
+        break;
+      case 0x00ff:
+        if(g_its>0)
+          g_its--;
+        break;
+      case 0x09f6:
+        if(b_its<256)
+          b_its++;
+        break;
+      case 0x1de2:
+        if(b_its>0)
+          b_its--;
+        break;
+    }
+  }
+  return 0;
+}
+
 int main(void)
 {
     int res;
@@ -117,6 +265,9 @@ int main(void)
     DDRD&=~(1<<3);
     //PORTC&=~(1<<0);
     PORTD&=~(1<<3);//
+    //CONFIG INTPUT FOR TSOP
+    DDRD&=~(1<<2);//
+    PORTD&=~(1<<2);//
 
 
 #define PINOUT(port, num) \
@@ -137,57 +288,20 @@ int main(void)
     //B:
     DDRD |= (1<<6);
 
-#define SET_R() \
-    PORTB |= (1<<1);
-#define CLR_R() \
-    PORTB &= ~(1<<1);
-#define SET_G() \
-    PORTB |= (1<<3);
-#define CLR_G() \
-    PORTB &= ~(1<<3);
-#define SET_B() \
-    PORTD |= (1<<6);
-#define CLR_B() \
-    PORTD &= ~(1<<6);
-
     uart_init();
     uart_stdio();
 
     twi_init();
+    timer0_init();
+    extint_init();
 
-    int BH1772_init=0;
+    ir_init();
 
     int i=0;
-    int EKMC1601111=0;
+    int BH1772_init=0;
     int sens;
+    sei();
     for(;;){
-      switch(i%5){
-        case 0:
-          CLR_R();
-          CLR_G();
-          CLR_B();
-          break;
-        case 1:
-          SET_R();
-          CLR_G();
-          CLR_B();
-          break;
-        case 2:
-          CLR_R();
-          SET_G();
-          CLR_B();
-          break;
-        case 3:
-          CLR_R();
-          CLR_G();
-          SET_B();
-          break;
-        case 4:
-          SET_R();
-          SET_G();
-          SET_B();
-          break;
-      }
 
 
       if(i%2){
@@ -196,8 +310,7 @@ int main(void)
         PORTD &= ~(1<<5);
       }
 
-      EKMC1601111=(PIND>>3)&3;
-
+      ///*
       if(BH1772_init == 0){
         res = BH1772GLC_init(AMB_PREF);
         if(res==0){
@@ -209,7 +322,6 @@ int main(void)
         }
       }
 
-          //*
       if(BH1772GLC_init) {
         sens = BH1772GLC_get_shot(AMB_PREF);
         if(sens == 0) { //dark or error
@@ -220,12 +332,18 @@ int main(void)
         }else{
         }
       }   // */
-      printf("Current ALS is: %i (%x),EKMS: %i\n", sens, sens, EKMC1601111);
+      //printf("Current ALS is: %i (%x),EKMS: %i, time:  %i, ftime: %i\n", sens, sens, EKMC1601111, time, ftime);
+      if(ir_update){
+        ir_update=0;
+        printf("RGB: %i, %i, %i\n", r_its, g_its, b_its);
+      }
       //puts("A");
       //_delay_ms(1000);
+      cycle_event();
       i++;
     }
 
   return res;
 }
+
 
