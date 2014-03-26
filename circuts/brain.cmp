@@ -1,25 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2011-nov-30)-stable date = Ср. 20 февр. 2013 00:21:54
-
-BeginCmp
-TimeStamp = /5123A30D;
-Reference = C2;
-ValeurCmp = RGB;
-IdModule  = CP4;
-EndCmp
-
-BeginCmp
-TimeStamp = /5123A31B;
-Reference = C3;
-ValeurCmp = RGB;
-IdModule  = CP4;
-EndCmp
-
-BeginCmp
-TimeStamp = /5123A31D;
-Reference = C4;
-ValeurCmp = RGB;
-IdModule  = CP4;
-EndCmp
+Cmp-Mod V01 Created by CvPcb (2011-nov-30)-stable date = Сб. 02 марта 2013 21:33:06
 
 BeginCmp
 TimeStamp = /5123A2F4;
@@ -148,10 +127,10 @@ IdModule  = DIP-18__300;
 EndCmp
 
 BeginCmp
-TimeStamp = /5123DEC5;
+TimeStamp = /51323685;
 Reference = U2;
-ValeurCmp = IRU1015;
-IdModule  = SIL-3;
+ValeurCmp = AP1117E33G;
+IdModule  = SOT223;
 EndCmp
 
 BeginCmp

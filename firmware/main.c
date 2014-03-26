@@ -152,6 +152,7 @@ ISR(TIMER0_OVF_vect) {
     if(EKMC1601111>0){
       EKMC1601111--;;
     }
+    /*
     if(leds_status==0){
       if(r_its>0) r_its--;
       else
@@ -164,7 +165,7 @@ ISR(TIMER0_OVF_vect) {
         if(b_its<0xff) b_its++;
         else
           if(r_its<0xff) r_its++;
-    }
+    }*/
   }
   time++;
   if(time>=256){
@@ -338,6 +339,7 @@ int main(void)
     int BH1772_init=0;
     int sens;
     sei();
+    printf("===HELLO====\n");
     for(;;){
       ///*
       if(BH1772_init == 0){
@@ -351,41 +353,44 @@ int main(void)
         }
       }
       ///////////////////////
-      /*
+      //*
       if(i%2){
         PORTD |= (1<<5);
       }else{
         PORTD &= ~(1<<5);
-      }*/
-
-      if(EKMC1601111>0){
-        if(BH1772GLC_init) {
-          sens = BH1772GLC_get_shot(AMB_PREF);
-          if(sens == 0) { //dark or error
-            int res = BH1772GLC_initcheck(AMB_PREF);
-            if(res!=2) { //not init, maybe error, or power reset.
-              BH1772_init=0;
-            }
+      }//*/
+      
+      if(BH1772_init) {
+        sens = BH1772GLC_get_shot(AMB_PREF);
+        if(sens == 0) { //dark or error
+          int res = BH1772GLC_initcheck(AMB_PREF);
+          if(res!=2) { //not init, maybe error, or power reset.
+            BH1772_init=0;
           }
-        }   // */
-        if (leds_status==0){
-            if(sens<=20)
-              leds_switchon();
         }
-        if(sens>=60)
-          leds_switchoff();
-
+      }   // */
+      /*
+      if (leds_status==0){
+          if(sens<=20)
+            leds_switchon();
       }
+      if(sens>=60)
+        leds_switchoff();
+
       if(EKMC1601111==0){
         leds_switchoff();
-      }
-      printf("Current ALS is: %i (%x),EKMS: %i\n", sens, sens, EKMC1601111);
-      if(ir_update){
-        ir_update=0;
-        printf("RGB: %i, %i, %i\n", r_its, g_its, b_its);
-      }
+      }*/
+      if(BH1772_init) {
+        r_its=sens/10; 
+        printf("Current ALS is: %i (%x),EKMS: %i\n", sens, sens, EKMC1601111);
+        if(ir_update){
+          ir_update=0;
+          printf("RGB: %i, %i, %i\n", r_its, g_its, b_its);
+        }
+      }else{
       //puts("A");
-      //_delay_ms(1000);
+        _delay_ms(1000);
+      }
       cycle_event();
       i++;
     }

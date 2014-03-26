@@ -8,6 +8,7 @@ DEVICE = atmega328p
 #DEVICE = atmega88
 #DEVICE = atmega168
 #TYPEPROG=siprog -P /dev/ttyS1
+#TYPEPROG=siprog -P /dev/ttyUSB0
 TYPEPROG=stk500v2 -P avrdoper
 #TYPEPROG=stk500v2 -P /dev/ttyACM2
 AVRDUDE = avrdude -c ${TYPEPROG} -p m328p
